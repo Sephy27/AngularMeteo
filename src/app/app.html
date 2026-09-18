@@ -24,6 +24,8 @@
         [(villeRecherchee)]="villeRecherchee"
         [resultats]="resultats()"
         [chargement]="chargement()"
+        [chargementPosition]="chargementPosition()"
+        (positionDemandee)="utiliserPosition()"
         [erreur]="erreur()"
         (rechercheDemandee)="rechercher()"
         (villeChoisie)="choisirVille($event)"
@@ -44,8 +46,11 @@
           [ville]="villeSelectionnee()!"
           [meteo]="resultatMeteo.current"
           [condition]="conditionMeteo(
-            resultatMeteo.current.weather_code
+            resultatMeteo.current.weather_code,
+            resultatMeteo.current.is_day === 1
           )"
+          [leverSoleil]="resultatMeteo.daily.sunrise[0]"
+          [coucherSoleil]="resultatMeteo.daily.sunset[0]"
         />
         <app-previsions-horaires
             [previsions]="previsionsHoraires()"

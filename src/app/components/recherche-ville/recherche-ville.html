@@ -31,6 +31,32 @@
       {{ chargement() ? 'Recherche...' : 'Rechercher' }}
     </button>
   </form>
+  <button
+    class="location-button"
+    type="button"
+    [disabled]="chargement() || chargementPosition()"
+    (click)="demanderPosition()"
+  >
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+    >
+      <path
+        d="M20 10c0 5-8 12-8 12S4 15 4 10
+          a8 8 0 1 1 16 0Z"
+      />
+      <circle cx="12" cy="10" r="3" />
+    </svg>
+
+    {{
+      chargementPosition()
+        ? 'Localisation...'
+        : 'Utiliser ma position'
+    }}
+  </button>
 
   @if (erreur()) {
     <p class="error-message" aria-live="polite">
@@ -44,6 +70,7 @@
         <button
           class="city-result"
           type="button"
+          [disabled]="chargement() || chargementPosition()"
           (click)="choisirVille(ville)"
         >
           <span class="city-name">

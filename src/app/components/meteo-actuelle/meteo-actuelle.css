@@ -109,7 +109,17 @@
 }
 
 .detail-icon {
-  font-size: 1.8rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.detail-icon img {
+  display: block;
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
 }
 
 .detail-card p {
@@ -130,14 +140,155 @@
 }
 
 @media (max-width: 700px) {
+  .weather-top {
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .section-label {
+    margin-bottom: 5px;
+    font-size: 0.67rem;
+    letter-spacing: 0.1em;
+  }
+
+  .weather-top h2 {
+    font-size: 1.5rem;
+    line-height: 1.12;
+  }
+
+  .location {
+    margin-top: 4px;
+    font-size: 0.82rem;
+  }
+
+  .data-status {
+    gap: 6px;
+    font-size: 0.74rem;
+  }
+
   .current-weather {
-    flex-direction: column;
-    padding: 36px 0;
-    text-align: center;
+    display: grid;
+    grid-template-columns: 88px minmax(0, 1fr);
+    align-items: center;
+    justify-content: initial;
+    gap: 16px;
+    padding: 22px 0 18px;
+    text-align: left;
+  }
+
+  .weather-icon {
+    width: 88px;
+    border-radius: 22px;
+  }
+
+  .temperature {
+    font-size: 3.35rem;
+    line-height: 0.92;
+    white-space: nowrap;
+  }
+
+  .temperature span {
+    margin-left: 3px;
+  }
+
+  .condition {
+    margin: 8px 0 2px;
+    font-size: 1rem;
+  }
+
+  .feels-like {
+    font-size: 0.82rem;
   }
 
   .weather-details {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 7px;
+  }
+
+  .detail-card {
+    min-width: 0;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3px;
+    padding: 9px 4px;
+    border-radius: 13px;
+    text-align: center;
+  }
+
+  .detail-icon img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .detail-card p {
+    margin: 0;
+    font-size: 0.66rem;
+    line-height: 1.2;
+  }
+
+  .detail-card strong {
+    font-size: 0.82rem;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .sun-details {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+    margin: 7px 0 0;
+  }
+
+  .sun-details .detail-card {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 7px;
+    padding: 9px 10px;
+    text-align: left;
+  }
+
+  .sun-details .detail-icon img {
+    width: 34px;
+    height: 34px;
+  }
+
+  .sun-details .detail-card p {
+    font-size: 0.68rem;
+  }
+
+  .sun-details .detail-card strong {
+    font-size: 0.86rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .weather-top h2 {
+    font-size: 1.32rem;
+  }
+
+  .data-status {
+    font-size: 0.68rem;
+  }
+
+  .current-weather {
+    grid-template-columns: 80px minmax(0, 1fr);
+    gap: 12px;
+    padding: 18px 0 16px;
+  }
+
+  .weather-icon {
+    width: 80px;
+  }
+
+  .temperature {
+    font-size: 3rem;
+  }
+
+  .detail-card p {
+    font-size: 0.61rem;
+  }
+
+  .detail-card strong {
+    font-size: 0.76rem;
   }
 }
 .weather-icon img {
@@ -145,4 +296,10 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+.sun-details {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
 }

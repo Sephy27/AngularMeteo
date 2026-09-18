@@ -6,6 +6,7 @@ export interface DonneesMeteoActuelle {
   weather_code: number;
   wind_speed_10m: number;
   surface_pressure: number;
+  is_day: number;
 }
 
 export interface ReponseMeteo {
@@ -19,6 +20,7 @@ export interface DonneesMeteoHoraires {
   temperature_2m: number[];
   weather_code: number[];
   precipitation_probability: number[];
+  is_day: number[];
 }
 
 export interface PrevisionHoraire {
@@ -26,6 +28,7 @@ export interface PrevisionHoraire {
   temperature: number;
   codeMeteo: number;
   risquePluie: number;
+  estJour: boolean;
 }
 
 export interface DonneesMeteoJournalieres {
@@ -34,6 +37,8 @@ export interface DonneesMeteoJournalieres {
   temperature_2m_max: number[];
   temperature_2m_min: number[];
   precipitation_probability_max: number[];
+  sunrise: string[];
+  sunset: string[];
 }
 
 export interface PrevisionJournaliere {

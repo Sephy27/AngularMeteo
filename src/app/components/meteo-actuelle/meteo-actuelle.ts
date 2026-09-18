@@ -15,4 +15,12 @@ export class MeteoActuelle {
   ville = input.required<Ville>();
   meteo = input.required<DonneesMeteoActuelle>();
   condition = input.required<ConditionMeteo>();
+  leverSoleil = input.required<string>();
+  coucherSoleil = input.required<string>();
+
+  formaterHeure(dateHeure: string): string {
+    return dateHeure
+      ? dateHeure.slice(11, 16)
+      : '--:--';
+  }
 }

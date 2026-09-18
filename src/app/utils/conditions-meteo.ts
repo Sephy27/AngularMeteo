@@ -3,6 +3,36 @@ import { ConditionMeteo } from '../models/meteo';
 const cheminIcone = (nom: string): string =>
   `/weather-icons/${nom}.svg`;
 
+interface VarianteJourNuit {
+  jour: string;
+  nuit: string;
+}
+
+const VARIANTES_JOUR_NUIT: Partial<
+  Record<number, VarianteJourNuit>
+> = {
+  0: {
+    jour: 'clear-day',
+    nuit: 'clear-night',
+  },
+  1: {
+    jour: 'mostly-clear-day',
+    nuit: 'mostly-clear-night',
+  },
+  2: {
+    jour: 'partly-cloudy-day',
+    nuit: 'partly-cloudy-night',
+  },
+  45: {
+    jour: 'fog-day',
+    nuit: 'fog-night',
+  },
+  48: {
+    jour: 'fog-day',
+    nuit: 'fog-night',
+  },
+};
+
 const CONDITIONS_METEO: Record<number, ConditionMeteo> = {
   0: {
     texte: 'Ciel dégagé',
@@ -129,11 +159,24 @@ const CONDITIONS_METEO: Record<number, ConditionMeteo> = {
 
 export function obtenirConditionMeteo(
   code: number,
+  estJour = true,
 ): ConditionMeteo {
-  return (
+  const condition =
     CONDITIONS_METEO[code] ?? {
       texte: 'Conditions inconnues',
       icone: cheminIcone('not-available'),
-    }
-  );
+    };
+
+  const variante = VARIANTES_JOUR_NUIT[code];
+
+  if (!variante) {
+    return condition;
+  }
+
+  return {
+    ...condition,
+    icone: cheminIcone(
+      estJour ? variante.jour : variante.nuit,
+    ),
+  };
 }

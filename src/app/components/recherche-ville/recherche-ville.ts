@@ -18,13 +18,19 @@ export class RechercheVille {
 
   resultats = input.required<Ville[]>();
   chargement = input(false);
+  chargementPosition = input(false);
   erreur = input('');
 
   rechercheDemandee = output<void>();
+  positionDemandee = output<void>();
   villeChoisie = output<Ville>();
 
   lancerRecherche(): void {
     this.rechercheDemandee.emit();
+  }
+
+  demanderPosition(): void {
+    this.positionDemandee.emit();
   }
 
   choisirVille(ville: Ville): void {

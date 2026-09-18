@@ -97,26 +97,94 @@
 }
 
 @media (max-width: 700px) {
+  .daily-section {
+    margin-top: 24px;
+  }
+
+  .daily-heading {
+    margin-bottom: 10px;
+  }
+
+  .daily-heading h3 {
+    font-size: 1.05rem;
+  }
+
   .daily-heading span {
     display: none;
   }
 
+  .daily-list {
+    border-radius: 14px;
+  }
+
   .daily-row {
-    grid-template-columns: 1fr auto;
-    gap: 12px;
+    grid-template-columns:
+      minmax(72px, 0.95fr)
+      minmax(86px, 1.25fr)
+      auto
+      auto;
+    gap: 7px;
+    padding: 10px;
+  }
+
+  .daily-date {
+    min-width: 0;
+    gap: 2px;
+  }
+
+  .daily-date strong {
+    overflow: hidden;
+    font-size: 0.82rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .daily-date span {
+    font-size: 0.68rem;
   }
 
   .daily-condition {
-    grid-column: 1;
+    grid-column: auto;
+    min-width: 0;
+    gap: 5px;
+  }
+
+  .daily-condition img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .daily-condition p {
+    overflow: hidden;
+    font-size: 0.76rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .daily-rain {
-    grid-column: 2;
-    grid-row: 2;
-    text-align: right;
+    grid-column: auto;
+    justify-self: initial;
+    font-size: 0.72rem;
+    white-space: nowrap;
   }
 
   .daily-temperatures {
-    justify-content: flex-end;
+    grid-column: auto;
+    justify-self: end;
+    gap: 4px;
+    font-size: 0.86rem;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 380px) {
+  .daily-row {
+    grid-template-columns: minmax(70px, 1fr) 34px auto auto;
+    gap: 6px;
+    padding: 9px 8px;
+  }
+
+  .daily-condition p {
+    display: none;
   }
 }

@@ -45,29 +45,85 @@
 
 <div class="weather-details">
   <article class="detail-card">
-    <span class="detail-icon" aria-hidden="true">💧</span>
+    <span class="detail-icon" aria-hidden="true">
+      <img
+        src="/weather-icons/humidity.svg"
+        alt=""
+      />
+    </span>
 
     <div>
       <p>Humidité</p>
-      <strong>{{ meteo().relative_humidity_2m }} %</strong>
+      <strong>
+        {{ meteo().relative_humidity_2m }} %
+      </strong>
     </div>
   </article>
 
   <article class="detail-card">
-    <span class="detail-icon" aria-hidden="true">💨</span>
+    <span class="detail-icon" aria-hidden="true">
+      <img
+        src="/weather-icons/wind.svg"
+        alt=""
+      />
+    </span>
 
     <div>
       <p>Vitesse du vent</p>
-      <strong>{{ meteo().wind_speed_10m }} km/h</strong>
+      <strong>
+        {{ meteo().wind_speed_10m }} km/h
+      </strong>
     </div>
   </article>
 
   <article class="detail-card">
-    <span class="detail-icon" aria-hidden="true">🧭</span>
+    <span class="detail-icon" aria-hidden="true">
+      <img
+        src="/weather-icons/barometer.svg"
+        alt=""
+      />
+    </span>
 
     <div>
       <p>Pression</p>
-      <strong>{{ meteo().surface_pressure }} hPa</strong>
+      <strong>
+        {{ meteo().surface_pressure }} hPa
+      </strong>
+    </div>
+  </article>
+</div>
+<div class="sun-details">
+  <article class="detail-card">
+    <span class="detail-icon" aria-hidden="true">
+      <img
+        src="/weather-icons/sunrise.svg"
+        alt=""
+      />
+    </span>
+
+    <div>
+      <p>Lever du soleil</p>
+
+      <strong>
+        {{ formaterHeure(leverSoleil()) }}
+      </strong>
+    </div>
+  </article>
+
+  <article class="detail-card">
+    <span class="detail-icon" aria-hidden="true">
+      <img
+        src="/weather-icons/clear-night.svg"
+        alt=""
+      />
+    </span>
+
+    <div>
+      <p>Coucher du soleil</p>
+
+      <strong>
+        {{ formaterHeure(coucherSoleil()) }}
+      </strong>
     </div>
   </article>
 </div>

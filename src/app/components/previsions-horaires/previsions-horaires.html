@@ -10,8 +10,10 @@
         prevision of previsions();
         track prevision.heure
       ) {
-        @let conditionHoraire =
-          conditionMeteo(prevision.codeMeteo);
+        @let conditionHoraire = conditionMeteo(
+          prevision.codeMeteo,
+          prevision.estJour
+        );
 
         <article class="hourly-card">
           <time>

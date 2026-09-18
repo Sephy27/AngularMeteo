@@ -11,6 +11,7 @@ import { obtenirConditionMeteo } from
 })
 export class PrevisionsHoraires {
   previsions = input.required<PrevisionHoraire[]>();
+ 
 
   readonly conditionMeteo = obtenirConditionMeteo;
 }

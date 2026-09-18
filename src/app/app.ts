@@ -2,7 +2,6 @@ import { Component, inject, signal } from '@angular/core';
 import { MeteoService } from './services/meteo';
 import { Ville } from './models/ville';
 import {
-  ConditionMeteo,
   PrevisionHoraire,
   PrevisionJournaliere,
   ReponseMeteo
@@ -40,7 +39,7 @@ export class App {
   resultats = signal<Ville[]>([]);
   chargement = signal(false);
   erreur = signal('');
-
+  chargementPosition = signal(false);
   villeSelectionnee = signal<Ville | null>(null);
   meteo = signal<ReponseMeteo | null>(null);
   chargementMeteo = signal(false);
@@ -87,6 +86,105 @@ export class App {
         this.chargement.set(false);
       }
     });
+  }
+
+ utiliserPosition(): void {
+    if (!navigator.geolocation) {
+      this.erreur.set(
+        'La géolocalisation n’est pas disponible.'
+      );
+      return;
+    }
+
+    this.chargementPosition.set(true);
+    this.erreur.set('');
+    this.resultats.set([]);
+
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+
+        this.meteoService
+          .obtenirLocalisation(latitude, longitude)
+          .subscribe({
+            next: localisation => {
+              const ville: Ville = {
+                id: -1,
+
+                name:
+                  localisation.city ||
+                  localisation.locality ||
+                  'Ma position',
+
+                latitude,
+                longitude,
+
+                admin1:
+                  localisation.principalSubdivision ||
+                  'Position actuelle',
+
+                country:
+                  localisation.countryName || ''
+              };
+
+              this.chargementPosition.set(false);
+              this.choisirVille(ville);
+            },
+
+            error: () => {
+              // Même si le nom de la ville est introuvable,
+              // on charge quand même la météo avec les coordonnées.
+              const ville: Ville = {
+                id: -1,
+                name: 'Ma position',
+                latitude,
+                longitude,
+                admin1: 'Position actuelle',
+                country: ''
+              };
+
+              this.chargementPosition.set(false);
+              this.choisirVille(ville);
+            }
+          });
+      },
+
+      erreurPosition => {
+        this.chargementPosition.set(false);
+
+        switch (erreurPosition.code) {
+          case 1:
+            this.erreur.set(
+              'L’autorisation de localisation a été refusée.'
+            );
+            break;
+
+          case 2:
+            this.erreur.set(
+              'Votre position est actuellement indisponible.'
+            );
+            break;
+
+          case 3:
+            this.erreur.set(
+              'La localisation a pris trop de temps.'
+            );
+            break;
+
+          default:
+            this.erreur.set(
+              'Impossible de récupérer votre position.'
+            );
+        }
+      },
+
+      {
+        enableHighAccuracy: false,
+        timeout: 10_000,
+        maximumAge: 300_000
+      }
+    );
   }
 
   choisirVille(ville: Ville): void {
@@ -161,7 +259,9 @@ export class App {
             reponse.hourly.weather_code[position] ?? 0,
           risquePluie:
             reponse.hourly
-              .precipitation_probability[position] ?? 0
+              .precipitation_probability[position] ?? 0,
+          estJour:
+            (reponse.hourly.is_day[position] ?? 1) === 1,
         };
       });
   }

@@ -10,3 +10,9 @@ export interface Ville {
 export interface ReponseGeocodage {
   results?: Ville[];
 }
+export interface LocalisationInverse {
+  city?: string;
+  locality?: string;
+  principalSubdivision?: string;
+  countryName?: string;
+}

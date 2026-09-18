@@ -71,13 +71,64 @@
 }
 
 @media (max-width: 700px) {
-  .hourly-grid {
-    grid-template-columns: repeat(6, minmax(105px, 1fr));
-    overflow-x: auto;
-    padding-bottom: 10px;
+  .hourly-section {
+    margin-top: 24px;
+  }
+
+  .hourly-heading {
+    margin-bottom: 10px;
+  }
+
+  .hourly-heading h3 {
+    font-size: 1.05rem;
   }
 
   .hourly-heading span {
     display: none;
+  }
+
+  .hourly-grid {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 0 0 2px;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    overscroll-behavior-inline: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .hourly-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hourly-card {
+    flex: 0 0 78px;
+    gap: 5px;
+    padding: 9px 5px;
+    border-radius: 13px;
+    scroll-snap-align: start;
+  }
+
+  .hourly-card:hover {
+    transform: none;
+  }
+
+  .hourly-card time {
+    font-size: 0.72rem;
+  }
+
+  .hourly-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .hourly-card strong {
+    font-size: 0.98rem;
+  }
+
+  .hourly-card small {
+    font-size: 0.7rem;
+    white-space: nowrap;
   }
 }

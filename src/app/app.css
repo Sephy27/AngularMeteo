@@ -117,11 +117,62 @@
 }
 
 @media (max-width: 700px) {
+  .weather-page {
+    padding: 14px 10px 24px;
+  }
+
   .app-header {
     display: block;
+    margin-bottom: 16px;
+  }
+
+  .eyebrow {
+    margin-bottom: 6px;
+    font-size: 0.68rem;
+  }
+
+  .app-header h1 {
+    font-size: clamp(1.75rem, 8vw, 2.15rem);
+    line-height: 1.05;
+  }
+
+  .intro {
+    margin-top: 8px;
+    font-size: 0.88rem;
+    line-height: 1.35;
   }
 
   .live-status {
     display: none;
+  }
+
+  .weather-card {
+    padding: 18px 14px;
+    border-radius: 22px;
+  }
+
+  .loading-message {
+    padding: 22px 10px;
+  }
+
+  .weather-footer {
+    margin-top: 18px;
+    padding-top: 14px;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .weather-page {
+    padding: 10px 6px 20px;
+  }
+
+  .intro {
+    display: none;
+  }
+
+  .weather-card {
+    padding: 16px 10px;
+    border-radius: 18px;
   }
 }
