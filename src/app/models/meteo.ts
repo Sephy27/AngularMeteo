@@ -45,3 +45,7 @@ export interface PrevisionJournaliere {
   codeMeteo: number;
   risquePluie: number;
 }
+export interface ConditionMeteo {
+  texte: string;
+  icone: string;
+}

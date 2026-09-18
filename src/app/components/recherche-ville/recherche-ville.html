@@ -1,0 +1,66 @@
+<section class="search-panel">
+  <form
+    class="search-form"
+    (ngSubmit)="lancerRecherche()"
+  >
+    <label class="sr-only" for="ville">
+      Rechercher une ville
+    </label>
+
+    <div class="input-wrapper">
+      <span aria-hidden="true">⌖</span>
+
+      <input
+        id="ville"
+        type="search"
+        name="ville"
+        [ngModel]="villeRecherchee()"
+        (ngModelChange)="villeRecherchee.set($event)"
+        placeholder="Rechercher une ville..."
+        autocomplete="off"
+      >
+    </div>
+
+    <button
+      class="search-button"
+      type="submit"
+      [disabled]="chargement()"
+    >
+      <span aria-hidden="true">⌕</span>
+
+      {{ chargement() ? 'Recherche...' : 'Rechercher' }}
+    </button>
+  </form>
+
+  @if (erreur()) {
+    <p class="error-message" aria-live="polite">
+      {{ erreur() }}
+    </p>
+  }
+
+  @if (resultats().length > 0) {
+    <div class="search-results">
+      @for (ville of resultats(); track ville.id) {
+        <button
+          class="city-result"
+          type="button"
+          (click)="choisirVille(ville)"
+        >
+          <span class="city-name">
+            {{ ville.name }}
+          </span>
+
+          <span class="city-region">
+            @if (ville.admin1) {
+              {{ ville.admin1 }}
+            }
+
+            @if (ville.country) {
+              — {{ ville.country }}
+            }
+          </span>
+        </button>
+      }
+    </div>
+  }
+</section>

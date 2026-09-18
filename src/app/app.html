@@ -20,65 +20,14 @@
       </div>
     </header>
 
-    <section class="search-panel">
-      <form class="search-form" (ngSubmit)="rechercher()">
-        <label class="sr-only" for="ville">
-          Rechercher une ville
-        </label>
-
-        <div class="input-wrapper">
-          <span aria-hidden="true">⌖</span>
-
-          <input
-            id="ville"
-            type="search"
-            name="ville"
-            [(ngModel)]="villeRecherchee"
-            placeholder="Rechercher une ville..."
-            autocomplete="off"
-          >
-        </div>
-
-        <button
-          class="search-button"
-          type="submit"
-          [disabled]="chargement()"
-        >
-          <span aria-hidden="true">⌕</span>
-          {{ chargement() ? 'Recherche...' : 'Rechercher' }}
-        </button>
-      </form>
-
-      @if (erreur()) {
-        <p class="error-message" aria-live="polite">
-          {{ erreur() }}
-        </p>
-      }
-
-      @if (resultats().length > 0) {
-        <div class="search-results">
-          @for (ville of resultats(); track ville.id) {
-            <button
-              class="city-result"
-              type="button"
-              (click)="choisirVille(ville)"
-            >
-              <span class="city-name">{{ ville.name }}</span>
-
-              <span class="city-region">
-                @if (ville.admin1) {
-                  {{ ville.admin1 }}
-                }
-
-                @if (ville.country) {
-                  — {{ ville.country }}
-                }
-              </span>
-            </button>
-          }
-        </div>
-      }
-    </section>
+      <app-recherche-ville
+        [(villeRecherchee)]="villeRecherchee"
+        [resultats]="resultats()"
+        [chargement]="chargement()"
+        [erreur]="erreur()"
+        (rechercheDemandee)="rechercher()"
+        (villeChoisie)="choisirVille($event)"
+      />
 
     @if (chargementMeteo()) {
       <div class="loading-message" aria-live="polite">
@@ -88,168 +37,28 @@
     }
 
     @if (meteo(); as resultatMeteo) {
-      @let condition = conditionMeteo(
-        resultatMeteo.current.weather_code
-      );
 
       <section class="weather-card">
-        <div class="weather-top">
-          <div>
-            <p class="section-label">Conditions actuelles</p>
 
-            <h2>{{ villeSelectionnee()?.name }}</h2>
+        <app-meteo-actuelle
+          [ville]="villeSelectionnee()!"
+          [meteo]="resultatMeteo.current"
+          [condition]="conditionMeteo(
+            resultatMeteo.current.weather_code
+          )"
+        />
+        <app-previsions-horaires
+            [previsions]="previsionsHoraires()"
+        />
 
-            <p class="location">
-              {{ villeSelectionnee()?.admin1 }}
+        <app-previsions-journalieres
+          [previsions]="previsionsJournalieres()"
+        />
 
-              @if (villeSelectionnee()?.country) {
-                — {{ villeSelectionnee()?.country }}
-              }
-            </p>
-          </div>
-
-          <span class="data-status">
-            <span class="live-dot"></span>
-            Actualisé
-          </span>
-        </div>
-
-        <div class="current-weather">
-          <div class="weather-icon" aria-hidden="true">
-            {{ condition.icone }}
-          </div>
-
-          <div class="temperature-block">
-            <p class="temperature">
-              {{ resultatMeteo.current.temperature_2m }}
-              <span>°C</span>
-            </p>
-
-            <p class="condition">{{ condition.texte }}</p>
-
-            <p class="feels-like">
-              Ressenti :
-              {{ resultatMeteo.current.apparent_temperature }} °C
-            </p>
-          </div>
-        </div>
-
-        <div class="weather-details">
-          <article class="detail-card">
-            <span class="detail-icon" aria-hidden="true">💧</span>
-
-            <div>
-              <p>Humidité</p>
-              <strong>
-                {{ resultatMeteo.current.relative_humidity_2m }} %
-              </strong>
-            </div>
-          </article>
-
-          <article class="detail-card">
-            <span class="detail-icon" aria-hidden="true">💨</span>
-
-            <div>
-              <p>Vitesse du vent</p>
-              <strong>
-                {{ resultatMeteo.current.wind_speed_10m }} km/h
-              </strong>
-            </div>
-          </article>
-
-          <article class="detail-card">
-            <span class="detail-icon" aria-hidden="true">🧭</span>
-
-            <div>
-              <p>Pression</p>
-              <strong>
-                {{ resultatMeteo.current.surface_pressure }} hPa
-              </strong>
-            </div>
-          </article>
-        </div>
-        @if (previsionsHoraires().length > 0) {
-        <div class="hourly-section">
-          <div class="hourly-heading">
-            <h3>Prochaines heures</h3>
-            <span>Prévisions horaires</span>
-          </div>
-
-          <div class="hourly-grid">
-            @for (
-              prevision of previsionsHoraires();
-              track prevision.heure
-            ) {
-              @let conditionHoraire =
-                conditionMeteo(prevision.codeMeteo);
-
-              <article class="hourly-card">
-                <time>
-                  {{ prevision.heure.slice(11, 16) }}
-                </time>
-
-                <span class="hourly-icon" aria-hidden="true">
-                  {{ conditionHoraire.icone }}
-                </span>
-
-                <strong>{{ prevision.temperature }}°</strong>
-
-                <small>
-                  💧 {{ prevision.risquePluie }} %
-                </small>
-              </article>
-            }
-          </div>
-        </div>
-      }
-
-      @if (previsionsJournalieres().length > 0) {
-        <div class="daily-section">
-          <div class="daily-heading">
-            <h3>Prévisions sur 7 jours</h3>
-            <span>Températures minimales et maximales</span>
-          </div>
-
-          <div class="daily-list">
-            @for (
-              prevision of previsionsJournalieres();
-              track prevision.date
-            ) {
-              @let conditionJour =
-                conditionMeteo(prevision.codeMeteo);
-
-              <article class="daily-row">
-                <div class="daily-date">
-                  <strong>{{ prevision.jour }}</strong>
-                  <span>{{ prevision.dateFormatee }}</span>
-                </div>
-
-                <div class="daily-condition">
-                  <span aria-hidden="true">
-                    {{ conditionJour.icone }}
-                  </span>
-
-                  <p>{{ conditionJour.texte }}</p>
-                </div>
-
-                <div class="daily-rain">
-                  💧 {{ prevision.risquePluie }} %
-                </div>
-
-                <div class="daily-temperatures">
-                  <strong>{{ prevision.temperatureMax }}°</strong>
-                  <span>{{ prevision.temperatureMin }}°</span>
-                </div>
-              </article>
-            }
-          </div>
-        </div>
-      }
-
-        <footer class="weather-footer">
-          Dernière mise à jour à
-          {{ resultatMeteo.current.time.slice(11, 16) }}
-        </footer>
+          <footer class="weather-footer">
+            Dernière mise à jour à
+            {{ resultatMeteo.current.time.slice(11, 16) }}
+          </footer>
       </section>
     }
 

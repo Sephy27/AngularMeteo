@@ -1,0 +1,73 @@
+<div class="weather-top">
+  <div>
+    <p class="section-label">Conditions actuelles</p>
+
+    <h2>{{ ville().name }}</h2>
+
+    <p class="location">
+      {{ ville().admin1 }}
+
+      @if (ville().country) {
+        — {{ ville().country }}
+      }
+    </p>
+  </div>
+
+  <span class="data-status">
+    <span class="live-dot"></span>
+    Actualisé
+  </span>
+</div>
+
+<div class="current-weather">
+  <div class="weather-icon">
+  <img
+    [src]="condition().icone"
+    [alt]="condition().texte"
+    />
+  </div>
+
+  <div class="temperature-block">
+    <p class="temperature">
+      {{ meteo().temperature_2m }}
+      <span>°C</span>
+    </p>
+
+    <p class="condition">
+      {{ condition().texte }}
+    </p>
+
+    <p class="feels-like">
+      Ressenti : {{ meteo().apparent_temperature }} °C
+    </p>
+  </div>
+</div>
+
+<div class="weather-details">
+  <article class="detail-card">
+    <span class="detail-icon" aria-hidden="true">💧</span>
+
+    <div>
+      <p>Humidité</p>
+      <strong>{{ meteo().relative_humidity_2m }} %</strong>
+    </div>
+  </article>
+
+  <article class="detail-card">
+    <span class="detail-icon" aria-hidden="true">💨</span>
+
+    <div>
+      <p>Vitesse du vent</p>
+      <strong>{{ meteo().wind_speed_10m }} km/h</strong>
+    </div>
+  </article>
+
+  <article class="detail-card">
+    <span class="detail-icon" aria-hidden="true">🧭</span>
+
+    <div>
+      <p>Pression</p>
+      <strong>{{ meteo().surface_pressure }} hPa</strong>
+    </div>
+  </article>
+</div>

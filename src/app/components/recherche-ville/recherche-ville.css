@@ -1,0 +1,137 @@
+:host {
+  display: block;
+}
+
+.search-panel {
+  position: relative;
+  z-index: 10;
+  margin-bottom: 24px;
+}
+
+.search-form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  padding: 10px;
+  background: rgb(15 23 42 / 82%);
+  border: 1px solid rgb(148 163 184 / 20%);
+  border-radius: 18px;
+  box-shadow: 0 20px 50px rgb(0 0 0 / 22%);
+  backdrop-filter: blur(16px);
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px;
+  color: #64748b;
+}
+
+.input-wrapper input {
+  width: 100%;
+  padding: 13px 0;
+  color: #f8fafc;
+  background: transparent;
+  border: 0;
+  outline: 0;
+}
+
+.input-wrapper input::placeholder {
+  color: #64748b;
+}
+
+.search-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 20px;
+  color: white;
+  font-weight: 700;
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  border: 0;
+  border-radius: 12px;
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.search-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgb(37 99 235 / 35%);
+}
+
+.search-button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.search-results {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  left: 0;
+  overflow: hidden;
+  padding: 8px;
+  background: #111c2f;
+  border: 1px solid rgb(148 163 184 / 20%);
+  border-radius: 16px;
+  box-shadow: 0 24px 60px rgb(0 0 0 / 45%);
+}
+
+.city-result {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+  padding: 13px 15px;
+  color: #e2e8f0;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  border-radius: 10px;
+}
+
+.city-result:hover {
+  background: rgb(59 130 246 / 14%);
+}
+
+.city-name {
+  font-weight: 750;
+}
+
+.city-region {
+  color: #94a3b8;
+  text-align: right;
+}
+
+.error-message {
+  margin: 10px 5px 0;
+  color: #fca5a5;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+@media (max-width: 700px) {
+  .search-form {
+    grid-template-columns: 1fr;
+  }
+
+  .city-result {
+    display: block;
+  }
+
+  .city-region {
+    display: block;
+    margin-top: 4px;
+    text-align: left;
+  }
+}

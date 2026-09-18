@@ -1,64 +1,39 @@
 import { Component, inject, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { MeteoService } from './services/meteo';
 import { Ville } from './models/ville';
 import {
+  ConditionMeteo,
   PrevisionHoraire,
   PrevisionJournaliere,
   ReponseMeteo
 } from './models/meteo';
+import { MeteoActuelle } from
+  './components/meteo-actuelle/meteo-actuelle';
 
-interface ConditionMeteo {
-  texte: string;
-  icone: string;
-}
+import { obtenirConditionMeteo } from
+  './utils/conditions-meteo';
+import { PrevisionsHoraires } from
+  './components/previsions-horaires/previsions-horaires';
+import { PrevisionsJournalieres } from
+  './components/previsions-journalieres/previsions-journalieres';
+import { RechercheVille } from
+  './components/recherche-ville/recherche-ville';
 
-const CONDITIONS_METEO: Record<number, ConditionMeteo> = {
-  0: { texte: 'Ciel dégagé', icone: '☀️' },
-  1: { texte: 'Principalement dégagé', icone: '🌤️' },
-  2: { texte: 'Partiellement nuageux', icone: '⛅' },
-  3: { texte: 'Couvert', icone: '☁️' },
-
-  45: { texte: 'Brouillard', icone: '🌫️' },
-  48: { texte: 'Brouillard givrant', icone: '🌫️' },
-
-  51: { texte: 'Bruine légère', icone: '🌦️' },
-  53: { texte: 'Bruine modérée', icone: '🌦️' },
-  55: { texte: 'Bruine dense', icone: '🌧️' },
-  56: { texte: 'Bruine verglaçante légère', icone: '🌧️' },
-  57: { texte: 'Bruine verglaçante dense', icone: '🌧️' },
-
-  61: { texte: 'Pluie faible', icone: '🌧️' },
-  63: { texte: 'Pluie modérée', icone: '🌧️' },
-  65: { texte: 'Pluie forte', icone: '🌧️' },
-  66: { texte: 'Pluie verglaçante légère', icone: '🌧️' },
-  67: { texte: 'Pluie verglaçante forte', icone: '🌧️' },
-
-  71: { texte: 'Neige faible', icone: '🌨️' },
-  73: { texte: 'Neige modérée', icone: '🌨️' },
-  75: { texte: 'Neige forte', icone: '❄️' },
-  77: { texte: 'Grains de neige', icone: '❄️' },
-
-  80: { texte: 'Averses faibles', icone: '🌦️' },
-  81: { texte: 'Averses modérées', icone: '🌧️' },
-  82: { texte: 'Averses violentes', icone: '🌧️' },
-
-  85: { texte: 'Averses de neige', icone: '🌨️' },
-  86: { texte: 'Fortes averses de neige', icone: '🌨️' },
-
-  95: { texte: 'Orage', icone: '⛈️' },
-  96: { texte: 'Orage avec grêle légère', icone: '⛈️' },
-  99: { texte: 'Orage avec forte grêle', icone: '⛈️' }
-};
 
 @Component({
   selector: 'app-root',
-  imports: [FormsModule],
+  imports: [
+    RechercheVille,
+    PrevisionsHoraires,
+    MeteoActuelle,
+    PrevisionsJournalieres
+  ],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
   private readonly meteoService = inject(MeteoService);
+  readonly conditionMeteo = obtenirConditionMeteo;
 
   villeRecherchee = '';
 
@@ -159,12 +134,7 @@ export class App {
       });
   }
 
-  conditionMeteo(code: number): ConditionMeteo {
-    return CONDITIONS_METEO[code] ?? {
-      texte: 'Conditions inconnues',
-      icone: '❓'
-    };
-  }
+
 
   private extrairePrevisionsHoraires(
     reponse: ReponseMeteo

@@ -1,0 +1,36 @@
+@if (previsions().length > 0) {
+  <div class="hourly-section">
+    <div class="hourly-heading">
+      <h3>Prochaines heures</h3>
+      <span>Prévisions horaires</span>
+    </div>
+
+    <div class="hourly-grid">
+      @for (
+        prevision of previsions();
+        track prevision.heure
+      ) {
+        @let conditionHoraire =
+          conditionMeteo(prevision.codeMeteo);
+
+        <article class="hourly-card">
+          <time>
+            {{ prevision.heure.slice(11, 16) }}
+          </time>
+
+          <img
+            class="hourly-icon"
+            [src]="conditionHoraire.icone"
+            [alt]="conditionHoraire.texte"
+          />
+
+          <strong>{{ prevision.temperature }}°</strong>
+
+          <small>
+            💧 {{ prevision.risquePluie }} %
+          </small>
+        </article>
+      }
+    </div>
+  </div>
+}

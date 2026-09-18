@@ -1,0 +1,48 @@
+@if (previsions().length > 0) {
+  <div class="daily-section">
+    <div class="daily-heading">
+      <h3>Prévisions sur 7 jours</h3>
+      <span>Températures minimales et maximales</span>
+    </div>
+
+    <div class="daily-list">
+      @for (
+        prevision of previsions();
+        track prevision.date
+      ) {
+        @let conditionJour =
+          conditionMeteo(prevision.codeMeteo);
+
+        <article class="daily-row">
+          <div class="daily-date">
+            <strong>{{ prevision.jour }}</strong>
+            <span>{{ prevision.dateFormatee }}</span>
+          </div>
+
+          <div class="daily-condition">
+            <img
+              [src]="conditionJour.icone"
+              [alt]="conditionJour.texte"
+            />
+
+            <p>{{ conditionJour.texte }}</p>
+          </div>
+
+          <div class="daily-rain">
+            💧 {{ prevision.risquePluie }} %
+          </div>
+
+          <div class="daily-temperatures">
+            <strong>
+              {{ prevision.temperatureMax }}°
+            </strong>
+
+            <span>
+              {{ prevision.temperatureMin }}°
+            </span>
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+}
