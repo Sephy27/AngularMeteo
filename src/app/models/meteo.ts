@@ -18,8 +18,11 @@ export interface ReponseMeteo {
 export interface DonneesMeteoHoraires {
   time: string[];
   temperature_2m: number[];
+  apparent_temperature: number[];
+  relative_humidity_2m: number[];
   weather_code: number[];
   precipitation_probability: number[];
+  wind_speed_10m: number[];
   is_day: number[];
 }
 
@@ -28,6 +31,9 @@ export interface PrevisionHoraire {
   temperature: number;
   codeMeteo: number;
   risquePluie: number;
+  temperatureRessentie: number;
+  humidite: number;
+  vitesseVent: number;
   estJour: boolean;
 }
 

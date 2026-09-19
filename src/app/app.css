@@ -9,6 +9,8 @@
 }
 
 .weather-shell {
+  position: relative;
+  z-index: 1;
   width: min(920px, 100%);
   margin: 0 auto;
 }
@@ -23,7 +25,7 @@
 
 .eyebrow {
   margin: 0 0 10px;
-  color: #60a5fa;
+  color: var(--accent);
   font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 0.12em;
@@ -38,7 +40,7 @@
 
 .intro {
   margin: 14px 0 0;
-  color: #94a3b8;
+  color: var(--text-secondary);
 }
 
 .live-status {
@@ -46,11 +48,11 @@
   align-items: center;
   gap: 9px;
   padding: 11px 15px;
-  color: #cbd5e1;
+  color: var(--text-secondary);
   font-size: 0.88rem;
   white-space: nowrap;
-  background: rgb(15 23 42 / 70%);
-  border: 1px solid rgb(148 163 184 / 18%);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
   border-radius: 999px;
 }
 
@@ -65,16 +67,16 @@
 
 .weather-card {
   padding: clamp(22px, 5vw, 42px);
-  background:
-    linear-gradient(
-      145deg,
-      rgb(19 31 50 / 96%),
-      rgb(10 18 31 / 96%)
-    );
-  border: 1px solid rgb(148 163 184 / 17%);
+  background: linear-gradient(
+    145deg,
+    var(--glass-dark-strong),
+    var(--glass-dark-bg)
+  );
+  border: 1px solid var(--glass-border);
   border-radius: 28px;
-  box-shadow: 0 30px 80px rgb(0 0 0 / 38%);
-  backdrop-filter: blur(18px);
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: blur(24px) saturate(145%);
+  -webkit-backdrop-filter: blur(24px) saturate(145%);
 }
 
 .loading-message {
@@ -83,7 +85,7 @@
   justify-content: center;
   gap: 12px;
   padding: 30px;
-  color: #cbd5e1;
+  color: var(--text-secondary);
 }
 
 .loader {
@@ -98,7 +100,7 @@
 .weather-footer {
   margin-top: 24px;
   padding-top: 20px;
-  color: #64748b;
+  color: var(--text-secondary);
   text-align: center;
   border-top: 1px solid rgb(148 163 184 / 12%);
 }
@@ -115,6 +117,7 @@
     transform: rotate(360deg);
   }
 }
+
 
 @media (max-width: 700px) {
   .weather-page {

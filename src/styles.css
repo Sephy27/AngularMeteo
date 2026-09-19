@@ -6,7 +6,7 @@
 html {
   min-width: 320px;
   min-height: 100%;
-  background: #07111f;
+  background: #2563eb;
 }
 
 body {
@@ -21,21 +21,87 @@ body {
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
-  background:
-    radial-gradient(
-      circle at 15% 10%,
-      rgb(37 99 235 / 22%),
-      transparent 34%
-    ),
-    radial-gradient(
-      circle at 85% 80%,
-      rgb(14 165 233 / 12%),
-      transparent 34%
-    ),
-    linear-gradient(145deg, #07111f, #0b1627);
+  background: #2563eb;
 }
 
 button,
 input {
   font: inherit;
+}
+
+.weather-page {
+  --glass-bg: rgb(255 255 255 / 16%);
+  --glass-bg-strong: rgb(255 255 255 / 22%);
+  --glass-border: rgb(255 255 255 / 30%);
+  --glass-shadow: 0 24px 70px rgb(17 52 94 / 22%);
+  --glass-item-bg: transparent;
+  --glass-item-hover: rgb(255 255 255 / 4%);
+  --glass-item-border: rgb(255 255 255 / 20%);
+  --glass-dark-bg: rgb(15 23 42 / 18%);
+  --glass-dark-strong: rgb(15 23 42 / 26%);
+  --text-primary: #ffffff;
+  --text-secondary: rgb(239 246 255 / 78%);
+  --accent: #dff6ff;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: var(--text-primary);
+  background:
+    radial-gradient(circle at 15% 15%, rgb(255 213 128 / 72%), transparent 30%),
+    radial-gradient(circle at 85% 22%, rgb(125 211 252 / 72%), transparent 34%),
+    radial-gradient(circle at 70% 88%, rgb(244 114 182 / 52%), transparent 35%),
+    linear-gradient(135deg, #0ea5e9, #6366f1 52%, #f43f5e);
+  background-size: 170% 170%;
+  animation: sky-flow 18s ease-in-out infinite alternate;
+  transition: background 1.2s ease;
+}
+
+.weather-page.is-night {
+  --glass-bg: rgb(255 255 255 / 12%);
+  --glass-bg-strong: rgb(255 255 255 / 18%);
+  --glass-border: rgb(255 255 255 / 24%);
+  --glass-shadow: 0 26px 80px rgb(30 27 75 / 32%);
+  background:
+    radial-gradient(circle at 18% 18%, rgb(125 211 252 / 48%), transparent 29%),
+    radial-gradient(circle at 82% 24%, rgb(192 132 252 / 65%), transparent 33%),
+    radial-gradient(circle at 68% 88%, rgb(244 114 182 / 45%), transparent 36%),
+    linear-gradient(135deg, #2563eb, #6d28d9 50%, #be185d);
+  background-size: 180% 180%;
+}
+
+.weather-page::before,
+.weather-page::after {
+  position: fixed;
+  z-index: -1;
+  width: 36vw;
+  min-width: 260px;
+  aspect-ratio: 1;
+  content: "";
+  pointer-events: none;
+  background: rgb(255 255 255 / 18%);
+  border-radius: 50%;
+  filter: blur(70px);
+  animation: float-orb 14s ease-in-out infinite alternate;
+}
+
+.weather-page::before { top: -12vw; left: -8vw; }
+.weather-page::after { right: -10vw; bottom: -14vw; animation-delay: -7s; }
+
+@keyframes sky-flow {
+  0% { background-position: 0% 20%; }
+  50% { background-position: 85% 55%; }
+  100% { background-position: 20% 100%; }
+}
+
+@keyframes float-orb {
+  from { transform: translate3d(-3%, -4%, 0) scale(0.92); }
+  to { transform: translate3d(12%, 10%, 0) scale(1.15); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .weather-page,
+  .weather-page::before,
+  .weather-page::after {
+    animation: none;
+  }
 }

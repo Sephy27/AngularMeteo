@@ -28,9 +28,26 @@
 
           <strong>{{ prevision.temperature }}°</strong>
 
-          <small>
+          <small class="rain-risk">
             💧 {{ prevision.risquePluie }} %
           </small>
+
+          <div class="hourly-details">
+            <span>
+              Ressenti
+              <strong>{{ prevision.temperatureRessentie }}°</strong>
+            </span>
+
+            <span>
+              Humidité
+              <strong>{{ prevision.humidite }} %</strong>
+            </span>
+
+            <span>
+              Vent
+              <strong>{{ prevision.vitesseVent }} km/h</strong>
+            </span>
+          </div>
         </article>
       }
     </div>

@@ -1,10 +1,6 @@
-:host {
-  display: block;
-}
+:host { display: block; }
 
-.hourly-section {
-  margin-top: 34px;
-}
+.hourly-section { margin-top: 34px; }
 
 .hourly-heading {
   display: flex;
@@ -14,121 +10,110 @@
   margin-bottom: 15px;
 }
 
-.hourly-heading h3 {
-  margin: 0;
-  font-size: 1.2rem;
-}
-
-.hourly-heading span {
-  color: #64748b;
-  font-size: 0.82rem;
-}
+.hourly-heading h3 { margin: 0; font-size: 1.2rem; }
+.hourly-heading span { color: var(--text-secondary); font-size: 0.82rem; }
 
 .hourly-grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(132px, 1fr);
   gap: 10px;
+  overflow-x: auto;
+  padding: 2px 2px 10px;
+  scroll-snap-type: x mandatory;
+  scrollbar-color: rgb(255 255 255 / 42%) transparent;
+  scrollbar-width: thin;
+  overscroll-behavior-inline: contain;
 }
 
 .hourly-card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 9px;
-  padding: 16px 10px;
-  background: rgb(255 255 255 / 4%);
-  border: 1px solid rgb(255 255 255 / 7%);
-  border-radius: 16px;
-  transition:
-    transform 160ms ease,
-    background-color 160ms ease;
+  gap: 7px;
+  padding: 14px 10px 11px;
+  background: var(--glass-item-bg);
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-radius: 18px;
+  border: 1px solid var(--glass-item-border);
+  scroll-snap-align: start;
+  transition: transform 160ms ease, background-color 160ms ease;
 }
 
 .hourly-card:hover {
-  transform: translateY(-4px);
-  background: rgb(59 130 246 / 10%);
+  background: var(--glass-item-hover);
+  transform: translateY(-3px);
 }
 
-.hourly-card time {
-  color: #94a3b8;
-  font-size: 0.85rem;
-}
+.hourly-card time { color: var(--text-secondary); font-size: 0.82rem; }
 
 .hourly-icon {
   display: block;
-  width: 52px;
-  height: 52px;
+  width: 48px;
+  height: 48px;
   margin-inline: auto;
   object-fit: contain;
 }
 
-.hourly-card strong {
-  font-size: 1.2rem;
+.hourly-card > strong { font-size: 1.15rem; }
+
+.rain-risk {
+  color: #dff6ff;
+  font-size: 0.78rem;
+  white-space: nowrap;
 }
 
-.hourly-card small {
-  color: #60a5fa;
+.hourly-details {
+  display: grid;
+  gap: 4px;
+  width: 100%;
+  margin-top: 3px;
+  padding-top: 8px;
+  border-top: 1px solid rgb(255 255 255 / 18%);
 }
+
+.hourly-details span {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+  color: var(--text-secondary);
+  font-size: 0.65rem;
+  white-space: nowrap;
+}
+
+.hourly-details strong { color: white; font-size: 0.68rem; }
 
 @media (max-width: 700px) {
-  .hourly-section {
-    margin-top: 24px;
-  }
-
-  .hourly-heading {
-    margin-bottom: 10px;
-  }
-
-  .hourly-heading h3 {
-    font-size: 1.05rem;
-  }
-
-  .hourly-heading span {
-    display: none;
-  }
+  .hourly-section { margin-top: 24px; }
+  .hourly-heading { margin-bottom: 10px; }
+  .hourly-heading h3 { font-size: 1.05rem; }
+  .hourly-heading span { display: none; }
 
   .hourly-grid {
     display: flex;
     gap: 8px;
-    overflow-x: auto;
-    padding: 0 0 2px;
-    scroll-snap-type: x mandatory;
+    padding: 2px 0;
     scrollbar-width: none;
-    overscroll-behavior-inline: contain;
     -webkit-overflow-scrolling: touch;
   }
 
-  .hourly-grid::-webkit-scrollbar {
-    display: none;
-  }
+  .hourly-grid::-webkit-scrollbar { display: none; }
 
   .hourly-card {
-    flex: 0 0 78px;
+    flex: 0 0 108px;
     gap: 5px;
-    padding: 9px 5px;
-    border-radius: 13px;
-    scroll-snap-align: start;
+    padding: 10px 7px 9px;
+    border-radius: 14px;
   }
 
-  .hourly-card:hover {
-    transform: none;
-  }
-
-  .hourly-card time {
-    font-size: 0.72rem;
-  }
-
-  .hourly-icon {
-    width: 36px;
-    height: 36px;
-  }
-
-  .hourly-card strong {
-    font-size: 0.98rem;
-  }
-
-  .hourly-card small {
-    font-size: 0.7rem;
-    white-space: nowrap;
-  }
+  .hourly-card:hover { transform: none; }
+  .hourly-card time { font-size: 0.71rem; }
+  .hourly-icon { width: 36px; height: 36px; }
+  .hourly-card > strong { font-size: 1rem; }
+  .rain-risk { font-size: 0.68rem; }
+  .hourly-details { gap: 3px; padding-top: 6px; }
+  .hourly-details span, .hourly-details strong { font-size: 0.59rem; }
 }

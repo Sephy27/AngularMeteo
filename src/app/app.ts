@@ -247,7 +247,7 @@ export class App {
     }
 
     return reponse.hourly.time
-      .slice(premiereHeure, premiereHeure + 6)
+      .slice(premiereHeure, premiereHeure + 12)
       .map((heure, index) => {
         const position = premiereHeure + index;
 
@@ -260,6 +260,12 @@ export class App {
           risquePluie:
             reponse.hourly
               .precipitation_probability[position] ?? 0,
+          temperatureRessentie:
+            reponse.hourly.apparent_temperature[position] ?? 0,
+          humidite:
+            reponse.hourly.relative_humidity_2m[position] ?? 0,
+          vitesseVent:
+            reponse.hourly.wind_speed_10m[position] ?? 0,
           estJour:
             (reponse.hourly.is_day[position] ?? 1) === 1,
         };

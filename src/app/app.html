@@ -1,4 +1,8 @@
-<div class="weather-page">
+<div
+  class="weather-page"
+  [class.is-night]="meteo()?.current?.is_day === 0"
+  [class.is-day]="meteo()?.current?.is_day !== 0"
+>
   <main class="weather-shell">
 
     <header class="app-header">

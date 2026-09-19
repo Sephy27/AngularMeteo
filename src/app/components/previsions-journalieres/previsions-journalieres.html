@@ -28,18 +28,20 @@
             <p>{{ conditionJour.texte }}</p>
           </div>
 
-          <div class="daily-rain">
-            💧 {{ prevision.risquePluie }} %
-          </div>
+          <div class="daily-right">
+            <div class="daily-rain">
+              💧 {{ prevision.risquePluie }} %
+            </div>
 
-          <div class="daily-temperatures">
-            <strong>
-              {{ prevision.temperatureMax }}°
-            </strong>
+            <div class="daily-temperatures">
+              <strong>
+                {{ prevision.temperatureMax }}°
+              </strong>
 
-            <span>
-              {{ prevision.temperatureMin }}°
-            </span>
+              <span>
+                {{ prevision.temperatureMin }}°
+              </span>
+            </div>
           </div>
         </article>
       }
