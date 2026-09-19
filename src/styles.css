@@ -6,7 +6,7 @@
 html {
   min-width: 320px;
   min-height: 100%;
-  background: #2563eb;
+  background: #a64fc4;
 }
 
 body {
@@ -21,7 +21,7 @@ body {
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
-  background: #2563eb;
+  background: #a64fc4;
 }
 
 button,
